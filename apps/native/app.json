@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "scheme": "agentpit-gg",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "agentpit-gg",
+    "slug": "agentpit-gg",
+    "plugins": ["expo-font"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
