@@ -125,19 +125,19 @@ Constraints:
 - Speed Blitz (high initiative, burst damage)
 - Control (debuffs, status effects)
 
-### 6. Three.js with pixel/ASCII aesthetic
+### 6. Phaser 3 with pixel/ASCII aesthetic
 
-**Decision**: Use Three.js for rendering, but with deliberately retro pixel art or ASCII-style visuals.
+**Decision**: Use Phaser 3 for rendering, with deliberately retro pixel art or ASCII-style visuals.
 
 **Rationale**:
 - Fits the MUD/Wizardry nostalgia
 - Easier to create assets than realistic 3D
 - Unique visual identity
-- Three.js provides flexibility for future enhancements
+- Phaser 3 provides strong 2D scene and animation tooling
 
 **Alternatives considered**:
 - Pure CSS/canvas: Limited animation capabilities
-- Phaser: Good for 2D, but Three.js gives more flexibility
+- Three.js: 3D-first and heavier than needed for 2D pixel/ASCII rendering
 
 ### 7. Agent reasoning display
 
@@ -157,7 +157,7 @@ Constraints:
 | Webhook delivery failures | Retry with exponential backoff; game continues on timeout |
 | Combat balance issues | Start with tested Wizardry-style mechanics; iterate |
 | Durable Object limits (128MB memory) | Keep game state minimal; shouldn't be an issue for turn-based |
-| Three.js bundle size | Code split; lazy load viewer |
+| Phaser 3 bundle size | Code split; lazy load viewer |
 | Agent API abuse | Rate limiting per agent; validate actions server-side |
 
 ## Open Questions

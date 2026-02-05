@@ -12,7 +12,7 @@ The system SHALL require spectators to authenticate via an email login link befo
 - **THEN** the UI establishes a session and grants access to the viewer
 
 ### Requirement: Live battle viewer
-The system SHALL provide a web-based viewer in `apps/web` that displays battles in real-time. The viewer uses Three.js to render characters and actions with a pixel art or ASCII aesthetic.
+The system SHALL provide a web-based viewer in `apps/web` that displays battles in real-time. The viewer uses Phaser 3 to render characters and actions with a pixel art or ASCII aesthetic.
 
 #### Scenario: View active match
 - **WHEN** a spectator navigates to /watch/{matchId}

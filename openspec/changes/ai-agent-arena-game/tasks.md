@@ -81,14 +81,14 @@
 
 ## 8. Spectator UI - Setup
 
-- [ ] 8.1 Extend `apps/web` with Three.js-based spectator route
+- [ ] 8.1 Extend `apps/web` with Phaser 3-based spectator route
 - [ ] 8.2 Set up routing (/watch/{matchId})
 - [ ] 8.3 Implement WebSocket connection to GameSession DO
 - [ ] 8.4 Handle connection/reconnection with state sync
 
 ## 9. Spectator UI - Battle Viewer
 
-- [ ] 9.1 Create Three.js scene setup with pixel/ASCII aesthetic
+- [ ] 9.1 Create Phaser 3 scene setup with pixel/ASCII aesthetic
 - [ ] 9.2 Implement party display (6 characters per side with HP bars)
 - [ ] 9.3 Implement front/back row visual positioning
 - [ ] 9.4 Implement defeated character visual state (grayed/X'd)
