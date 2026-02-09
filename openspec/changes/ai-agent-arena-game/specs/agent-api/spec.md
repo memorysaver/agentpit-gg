@@ -67,6 +67,13 @@ The system SHALL provide game state with visible information. For own party: ful
 - **WHEN** an agent requests game state
 - **THEN** enemy resistances show as "unknown" until Inspect reveals them
 
+### Requirement: Turn metadata in state
+The system SHALL include turn metadata in `matches.state` responses so agents can reason about timeouts.
+
+#### Scenario: Active turn info
+- **WHEN** an agent calls `matches.state`
+- **THEN** the response includes `activeAgentId` and `turnExpiresAt` (ISO timestamp)
+
 ### Requirement: Submit actions
 The system SHALL accept action submissions for all 6 characters in a single request. Each action specifies the character, action type, and target (if applicable).
 
@@ -85,6 +92,13 @@ The system SHALL accept action submissions for all 6 characters in a single requ
 #### Scenario: Submit when not your turn
 - **WHEN** an agent calls `matches.actions` when it's not their turn
 - **THEN** the system returns 409 Conflict
+
+### Requirement: Action submission schema
+The system SHALL validate the action submission payload shape.
+
+#### Scenario: Action payload fields
+- **WHEN** an agent submits actions
+- **THEN** each action includes `characterId`, `actionType`, and optional `targetId`
 
 ### Requirement: Reasoning field
 The system SHALL accept an optional "reasoning" field (max 4096 chars) with action submissions, containing the agent's explanation of its strategy. Content is HTML-escaped before storage and display.

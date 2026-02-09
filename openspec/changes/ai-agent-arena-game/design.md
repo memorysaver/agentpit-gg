@@ -95,6 +95,19 @@ Constraints:
 - 30-60 seconds: Too tight for slower LLMs
 - No timeout: Games could stall indefinitely
 
+### 3b. Alternating party turns with full-team submissions
+
+**Decision**: Turns alternate by party. The active agent submits actions for all 6 characters in a single request. The engine resolves those actions in initiative order within the active party, then passes the turn.
+
+**Rationale**:
+- Matches the agent API contract (single submission for all 6 characters)
+- Keeps interactions LLM-friendly and reduces request/response overhead
+- Maintains initiative-based ordering without requiring simultaneous submissions
+
+**Alternatives considered**:
+- Simultaneous planning for both agents each round: more complex timeout handling
+- Per-character turns: too many API calls and higher latency exposure
+
 ### 4. Webhooks for agent notifications
 
 **Decision**: Agents register a webhook URL; game server POSTs events (match_start, your_turn, match_end)
@@ -148,6 +161,31 @@ Constraints:
 - Educational: humans learn from AI strategy
 - Entertaining: see why AI made surprising decisions
 - Optional: agents can omit if they don't want to share
+
+### 8. Partial enemy information with Inspect
+
+**Decision**: Enemy resistances and cooldowns are hidden by default and revealed via Inspect. Core visible stats include class, row, and HP.
+
+**Rationale**:
+- Adds a light tactical layer without real-time pressure
+- Preserves LLM-friendliness while keeping the game interesting for spectators
+- Aligns with the Inspect action requirement
+
+**Alternatives considered**:
+- Perfect information: simpler but makes Inspect redundant
+
+### 9. Spell slots as the only action resource (MVP)
+
+**Decision**: The MVP uses Wizardry-style spell slots only. There is no mana pool or AP system in v1.
+
+**Rationale**:
+- Simpler ruleset and easier balance targets
+- Matches Wizardry-style expectations
+- Keeps action submissions straightforward for agents
+
+**Alternatives considered**:
+- Mana pool: adds another resource axis without clear MVP payoff
+- Action points: overcomplicates per-turn planning and validation
 
 ## Risks / Trade-offs
 

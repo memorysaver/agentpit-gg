@@ -3,16 +3,12 @@
 ### Requirement: Base stat formulas
 The system SHALL calculate character stats using the following base formulas:
 - HP Pool = 50 base + (Constitution * 5)
-- Mana Pool = 30 base + (Intelligence * 4)
 - Regeneration = 10% of max per turn minimum
 
 #### Scenario: HP calculation
 - **WHEN** a character has Constitution of 10
 - **THEN** their HP Pool is 100 (50 + 10*5)
 
-#### Scenario: Mana calculation
-- **WHEN** a character has Intelligence of 15
-- **THEN** their Mana Pool is 90 (30 + 15*4)
 
 ### Requirement: Template archetype definitions
 The system SHALL implement five distinct template archetypes, each with a clear strategic identity:
@@ -29,7 +25,7 @@ The system SHALL implement five distinct template archetypes, each with a clear 
 ### Requirement: DPS parity formulas
 The system SHALL balance damage output across classes using these formulas:
 - Warrior DPS = (Strength * 1.2) / Speed
-- Mage DPS = (Intelligence * 1.5) / (Speed * Mana_Cost)
+- Mage DPS = (Intelligence * 1.5) / (Speed * Spell_Level)
 - Healer Effectiveness = (Healing_Power * Multiplier) / Speed
 
 #### Scenario: Class damage balance

@@ -6,8 +6,22 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), tailwindcss(), tanstackStart(), viteReact(), alchemy()],
+  plugins: [
+    tsconfigPaths(),
+    tailwindcss(),
+    tanstackStart(),
+    viteReact(),
+    alchemy({
+      inspectorPort: false,
+      config: {
+        dev: {
+          port: 3102,
+        },
+      },
+    }),
+  ],
   server: {
-    port: 3001,
+    port: 3101,
+    strictPort: true,
   },
 });

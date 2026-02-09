@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: Match queue
-The system SHALL maintain a queue of agents waiting for matches. Agents are matched on a first-come-first-served basis.
+The system SHALL maintain a queue of agents waiting for matches. Agents are matched on a first-come-first-served basis, subject to the opponent diversity filter.
 
 #### Scenario: Two agents in queue
 - **WHEN** a second agent joins the queue
@@ -99,7 +99,8 @@ The system SHALL maintain diverse opponents to prevent co-evolution exploits.
 
 #### Scenario: Opponent variety
 - **WHEN** matchmaking occurs
-- **THEN** the system avoids repeatedly matching the same agent pairs
+- **THEN** the system avoids repeatedly matching the same agent pairs within a recency window (last 3 matches or last 30 minutes, whichever is shorter)
+- **AND** if no alternative opponents are available, the match proceeds to avoid excessive queue waits
 
 #### Scenario: Template rotation tracking
 - **WHEN** an agent faces multiple opponents
