@@ -18,42 +18,25 @@ The system SHALL calculate damage using:
 - **WHEN** a critical hit occurs with 2x multiplier
 - **THEN** damage is doubled after base calculation
 
-### Requirement: Action point system
-The system SHALL implement an action point (AP) economy:
-- Characters receive 5-8 AP per turn based on Speed stat
-- Major actions (attack, spell) cost 3-4 AP
-- Minor actions (buff, move) cost 1-2 AP
-- Reactions (defensive) cost 1-2 AP
-
-#### Scenario: AP allocation
-- **WHEN** a character with 6 AP uses Attack (4 AP)
-- **THEN** they have 2 AP remaining for minor actions
-
-#### Scenario: Insufficient AP
-- **WHEN** a character attempts an action costing more than remaining AP
-- **THEN** the action fails and no AP is consumed
-
-### Requirement: Ability cost formula
-The system SHALL calculate ability costs as:
-- Ability cost = Power_Level * 1.5 to 3 (mana or spell slots)
-- Higher power abilities cost proportionally more resources
-
-#### Scenario: Spell cost scaling
-- **WHEN** a level 3 spell is cast
-- **THEN** it consumes 5-9 mana or spell slots depending on power
+### Requirement: Ability resource costs
+The system SHALL use spell slots as the only per-action resource for MVP:
+- Casting a spell consumes 1 spell slot of the spell's level
+- Attack, Defend, Use Item, and Inspect cost 0 resources
 
 ### Requirement: Turn-based combat system
-The system SHALL implement turn-based combat where each character acts in initiative order. Combat proceeds in rounds, with each round consisting of all characters taking one turn.
+The system SHALL implement alternating party turns. Each turn belongs to one party, who submits actions for all 6 characters. Combat proceeds in rounds, with each round consisting of both parties taking one turn.
 
 #### Scenario: Combat round execution
 - **WHEN** a combat round begins
-- **THEN** each character takes their turn in order of initiative (highest first)
+- **THEN** the active party submits actions for all 6 characters
+- **AND** the engine resolves those actions in initiative order within the active party only
+- **AND** the turn then passes to the opposing party
 
 #### Scenario: Initiative calculation
 - **WHEN** combat starts
 - **THEN** initiative = Speed + random(0-19) using seeded PRNG per match
+- **AND** each party's initiative order is computed and recorded for replay reproducibility
 - **AND** ties broken by higher Speed, then by character ID (ascending)
-- **AND** RNG seed recorded in match data for replay reproducibility
 
 ### Requirement: Party composition
 The system SHALL support parties of exactly 6 characters. Each party MUST have characters assigned to either front row or back row positions.
@@ -142,18 +125,14 @@ The system SHALL enforce a 120-second timeout per turn for the controlling agent
 
 ### Requirement: AI fairness guarantees
 The system SHALL ensure fair conditions for LLM agents:
-- Perfect information: full game state visible to both agents
+- Symmetric information rules: both agents see the same categories of enemy data
 - Asynchronous turns: no real-time latency pressure
 - 120-second timeout: generous buffer for LLM processing
 - Pre-built templates: known compositions, no surprises
 
-#### Scenario: Full state visibility
+#### Scenario: Symmetric information
 - **WHEN** an agent requests game state
-- **THEN** all public information about both parties is returned
-
-#### Scenario: No hidden information
-- **WHEN** combat begins
-- **THEN** both agents see identical game state (no fog of war)
+- **THEN** both agents receive identical visibility rules for enemy information
 
 ### Requirement: Battle length targets
 The system SHALL balance combat to achieve:
@@ -168,3 +147,23 @@ The system SHALL balance combat to achieve:
 #### Scenario: Stalemate prevention
 - **WHEN** a match exceeds 30 turns
 - **THEN** escalating damage bonus applies to prevent indefinite games
+
+### Requirement: Target resolution
+The system SHALL resolve invalid targets deterministically at execution time.
+
+#### Scenario: Target defeated before execution
+- **WHEN** an action targets a character that is defeated before the action resolves
+- **THEN** the engine selects a new valid target using the match RNG seed
+- **AND** the engine prefers a valid target in the same row; if none, the other row
+- **AND** if no valid targets remain, the action fizzles with no effect
+
+### Requirement: Match statistics and battle log
+The system SHALL track per-match statistics and a battle log for spectator display.
+
+#### Scenario: Match statistics
+- **WHEN** a match ends
+- **THEN** the system records total damage dealt, spells cast, and turns taken per party
+
+#### Scenario: Battle log entries
+- **WHEN** any action resolves
+- **THEN** the system appends a human-readable log entry to the match log

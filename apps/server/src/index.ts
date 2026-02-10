@@ -71,8 +71,19 @@ app.use("/*", async (c, next) => {
   await next();
 });
 
+app.get("/arena/watch/:matchId", (c) => {
+  const matchId = c.req.param("matchId");
+  const sessionId = env.GAME_SESSION.idFromName(matchId);
+  const session = env.GAME_SESSION.get(sessionId);
+
+  return session.fetch(c.req.raw);
+});
+
 app.get("/", (c) => {
   return c.text("OK");
 });
 
 export default app;
+
+export { GameSession } from "./durable-objects/game-session";
+export { Matchmaker } from "./durable-objects/matchmaker";

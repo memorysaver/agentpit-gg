@@ -1,0 +1,42 @@
+[
+  {
+    "templateId": "balanced",
+    "wins": 26,
+    "losses": 0,
+    "winRate": 1,
+    "averageTurns": 172.6153846153846,
+    "stalemateRate": 2.076923076923077
+  },
+  {
+    "templateId": "glass-cannon",
+    "wins": 20,
+    "losses": 24,
+    "winRate": 0.45454545454545453,
+    "averageTurns": 101.5909090909091,
+    "stalemateRate": 0.8181818181818182
+  },
+  {
+    "templateId": "tank-wall",
+    "wins": 60,
+    "losses": 0,
+    "winRate": 1,
+    "averageTurns": 67.36666666666666,
+    "stalemateRate": 0.3333333333333333
+  },
+  {
+    "templateId": "speed-blitz",
+    "wins": 0,
+    "losses": 61,
+    "winRate": 0,
+    "averageTurns": 63,
+    "stalemateRate": 0.3114754098360656
+  },
+  {
+    "templateId": "control",
+    "wins": 1,
+    "losses": 22,
+    "winRate": 0.043478260869565216,
+    "averageTurns": 203.7826086956522,
+    "stalemateRate": 2.4782608695652173
+  }
+]

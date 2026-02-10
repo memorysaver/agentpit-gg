@@ -4,6 +4,7 @@ import { env } from "@agentpit-gg/env/server";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { magicLink } from "better-auth/plugins/magic-link";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -43,5 +44,12 @@ export const auth = betterAuth({
     //   domain: "<your-workers-subdomain>",
     // },
   },
-  plugins: [expo()],
+  plugins: [
+    expo(),
+    magicLink({
+      sendMagicLink: async ({ email, url }) => {
+        console.info(`Magic link for ${email}: ${url}`);
+      },
+    }),
+  ],
 });
